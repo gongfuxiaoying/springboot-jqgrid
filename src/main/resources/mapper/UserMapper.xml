@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--
+1.<mapper>的namespace中需要与使用@Mapper的接口对应
+2.UserMapper.xml文件名称必须与使用@Mapper的接口名称一致
+3.标签中的id必须与@Mapper的接口中的方法名一致，且参数一致
+
+-->
+<mapper namespace="com.example.springbootjqgrid.mapper.UserMapper">
+    <select id="findAll" resultType="User">
+        SELECT * FROM user
+    </select>
+</mapper>

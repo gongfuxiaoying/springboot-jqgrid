@@ -1,0 +1,142 @@
+[
+  {
+    "ChuShi": 11,
+    "deptName": "办公厅",
+    "WeiDuiBiao": 12,
+    "FenGuanHuiLingDao": 13,
+    "KaoHeBan": 14,
+    "ChuZhang": 15,
+    "BuZhang": 16,
+    "BuMenShenHeRen": 17
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "研究室",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "会员部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "宣传教育部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "经济部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "扶贫与社会服务部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "联络部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "法律部",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "机关党委_人事部",
+    "WeiDuiBiao": 2,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "信息中心",
+    "WeiDuiBiao": 1,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "机关服务中心",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "中华工商时报社",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "中华工商联合出版社",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  },
+  {
+    "ChuShi": 0,
+    "deptName": "人才交流服务中心",
+    "WeiDuiBiao": 0,
+    "FenGuanHuiLingDao": 0,
+    "KaoHeBan": 0,
+    "ChuZhang": 0,
+    "BuZhang": 0,
+    "BuMenShenHeRen": 0
+  }
+]

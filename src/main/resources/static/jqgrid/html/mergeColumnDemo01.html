@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <!--jqueryui-->
+    <link href="../css/jquery-ui.min.css" rel="stylesheet">
+    <!--jqgrid的css-->
+    <link href="../css/ui.jqgrid.css" rel="stylesheet">
+    <!--jquery-->
+    <script src="../js/jquery-3.0.0.min.js"></script>
+    <!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+    <!--locale-->
+    <script src="../js/i18n/grid.locale-en.js"></script>
+    <!--jqgrid的js-->
+    <script src="../js/jquery.jqGrid.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+
+    <meta charset="utf-8" />
+    <title>jqGrid Loading Data</title>
+
+</head>
+<body>
+<button>测试</button>
+<div class="panel panel-default">
+    <div class="panel-heading">任务情况1</div>
+    <table id="jqGridDeptTable"></table>
+    <div id="jqGridPager"></div>
+</div>
+
+<script language="JavaScript">
+    function addCellAttr(rowId, val, rawObject, cm, rdata) {
+        return "style='background-color:#f2f2f2;color:#364c63'";
+    }
+    function addCellAttrRed(rowId, val, rawObject, cm, rdata) {
+        return "style='background-color:#e9e9e9;color:#364c63'";
+    }
+    function addCellAttrGreen(rowId, val, rawObject, cm, rdata) {
+        return "style='background-color:#e0e0e0;color:#364c63'";
+    }
+    var curUser ={userId:'12345'}
+    var marge=false;
+    var listoption ={
+        url: "../json/test2.json",
+        datatype:'json',
+        colModel: [
+            { label: '部门单位', name: 'deptName', width: 110,sortable: false},
+            { label: '部门id', name: 'deptId', width: 110,hidden:true,sortable: false },
+            { label: '总数', name: 'allSum', width: 60, sortable: false,formatter: function(value, options, row){
+                    return value;
+                }},
+            { label: '任务数', name: 'AAllSum', width: 60, sortable: false,cellattr: addCellAttr, formatter: function(value, options, row){
+                    return value;
+                } },
+            { label: '推进中', name: 'AUsualSum', width: 60, sortable: false,cellattr: addCellAttr},
+            { label: '已完成', name: 'ACompleteSum', width: 60, sortable: false,cellattr: addCellAttr},
+
+
+            { label: '任务数', name: 'BAllSum', width: 60 , sortable: false,cellattr: addCellAttrRed, formatter: function(value, options, row){
+                    return value;
+                }},
+            { label: '推进中', name: 'BUsualSum', width: 60, sortable: false,cellattr: addCellAttrRed },
+            { label: '已完成', name: 'BCompleteSum', width: 60, sortable: false,cellattr: addCellAttrRed},
+
+
+            { label: '任务数', name: 'CAllSum', width: 60, sortable: false,cellattr: addCellAttrGreen , formatter: function(value, options, row){
+                    return value;
+
+                }},
+            { label: '推进中', name: 'CUsualSum', width: 60, sortable: false,cellattr: addCellAttrGreen },
+            { label: '已完成', name: 'CCompleteSum', width: 60, sortable: false,cellattr: addCellAttrGreen},
+
+
+        ],
+        /* viewrecords: true,*/
+        height: 500,
+        rowNum: 20,
+        rowList : [20,30,50],
+        rownumbers: true,
+        rownumWidth: 40,
+        autowidth: true,
+        // multiselect: true,
+        // multiboxonly:true,
+
+        pager: "#jqGridPager",
+        jsonReader : {
+            root: "page.records",
+            page: "page.current",
+            total: "page.pages",
+            records: "page.total"
+        },
+        prmNames : {
+            page:"page",
+            rows:"limit",
+            order: "order"
+        },
+        postData:{
+            'creator':curUser.userId
+        },
+        gridComplete:function(){
+            //隐藏grid底部滚动条
+            $("#jqGridDeptTable").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            $("#jqGridDeptTable").jqGrid('setLabel','rn', '序号', {'text-align':'left','width':40},'');
+            var ids = $("#gridTable").getDataIDs();
+
+            // $("#jqGrid").closest('.ui-jqgrid-view').find('div.ui-jqgrid-hdiv').hide();//隐藏表头
+
+            if(!marge){
+                /*合并表头*/
+                $("#jqGridDeptTable").jqGrid('setGroupHeaders',{
+                    useColSpanStyle: true,
+                    groupHeaders:[
+                        {startColumnName : 'AAllSum',numberOfColumns : 3,titleText : 'A类任务' ,id:"aId",name:"bqy1"},
+                        {startColumnName : 'BAllSum',numberOfColumns : 3,titleText : 'B类任务',name:"bqy2"},
+                        {startColumnName : 'CAllSum',numberOfColumns : 3,titleText : 'C类任务',name:"bqy3"}
+                    ]
+                });
+                marge=true;
+            }
+
+
+            var lb=[]
+            //debugger;
+            var ids = $("#jqGridDeptTable").jqGrid("getDataIDs");
+            var jqGridDeptTable_rn = $("#jqGridDeptTable_rn");
+            jqGridDeptTable_rn.css("background","red");
+            $("#jqgh_jqGrid_rn").css("cssText","background:red !important");
+            /*ABC bian'se变色*/
+            jqGridDeptTable_rn.next().next().next().next().css("cssText","background:#EE9A00 !important");
+            jqGridDeptTable_rn.next().next().next().next().next().css("cssText","background:#47D2D9 !important");
+            jqGridDeptTable_rn.next().next().next().next().next().next().css("cssText","background:#00B050 !important");
+
+            for(var ii = 0; ii < ids.length; ii++){
+                var rowD=$("#jqGridDeptTable").jqGrid('getRowData',ids[ii]);
+                /*$('#'+ids[4]).find("td").addClass("SelectBG");*/
+                lb.push(rowD)
+            }
+            //debugger;
+            //放入标题
+            var str =$("#titleName").attr('zdy');
+            if(str=="1")
+            {
+                str="部门"
+            }else if(str=="2")
+            {
+                str="处室"
+            }
+
+            //存入历史数据
+            /*window.parent.zdy=JSON.stringify({
+                data:vm.$data,
+                lb:lb,
+                title:str
+            });*/
+            //去除loading
+            $(".class").data("gridOptions", {
+                url: '',
+                colModel: [{}],
+                loadComplete:function(){},
+                gridComplete:function(){}
+            });
+        },
+
+    }
+    $(function(){
+        // listoption.datatype="json";
+        // listoption.url= "../json/test11.json";
+        // listoption.datatype ='json';
+        $("#jqGridDeptTable").jqGrid(listoption);//开始加载列表
+
+    });
+</script>
+
+</body>
+</html>

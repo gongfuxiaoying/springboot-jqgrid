@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <!--jqueryui-->
+    <link href="../css/jquery-ui.min.css" rel="stylesheet">
+    <!--jqgrid的css-->
+    <link href="../css/ui.jqgrid.css" rel="stylesheet">
+    <!--jquery-->
+    <script src="../js/jquery-3.0.0.min.js"></script>
+    <!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+    <!--locale-->
+    <script src="../js/i18n/grid.locale-en.js"></script>
+    <!--jqgrid的js-->
+    <script src="../js/jquery.jqGrid.min.js"></script>
+    <script src="../js/layer/layer.js"></script>
+
+    <meta charset="utf-8"/>
+    <title>jqGrid Loading Data</title>
+
+</head>
+<body>
+<button>测试</button>
+<div class="panel panel-default">
+    <div class="panel-heading">任务情况1</div>
+    <table id="jqGrid"></table>
+    <div id="jqGridPager"></div>
+</div>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+        $("#jqGrid").jqGrid({
+            //url: '${ctx}/marketingPlan/getExecuteMarketingPlanPacking',
+            url: "../json/mergeRowDemo04.json",
+            datatype: "json",
+            rownumbers: true,
+            colNames: ['Id', '省', '市', '县','path'],
+            colModel: [
+                {name: 'id', index: 'id', width: '30px', hidden: true, key: true},
+                {
+                    name: 'province', index: 'province', width: '50px',
+                    cellattr: function (rowId) {
+                        //合并单元格,为单元格赋id
+                        return 'id=\'province' + rowId + "\'";
+                    }
+                },
+                {
+                    name: 'city', index: 'city', width: '80px',
+                    cellattr: function (rowId) {
+                        //合并单元格
+                        return 'id=\'city' + rowId + "\'";
+                    }
+                },
+                {
+                    name: 'town', index: 'town', width: '80px',
+                    cellattr: function (rowId) {
+                        //合并单元格
+                        return 'id=\'town' + rowId + "\'";
+                    }
+                }
+                ,{name: 'path', index: 'path', width: '80px'},
+            ],
+            rowNum: 15,
+            rowList: [20, 15, 30],
+            height: $(window).height,
+            autowidth: true,
+            pager: "#jqGridPager",
+            altRows: true,
+            hidegrid: false,
+            viewrecords: true,
+            recordpos: 'left',
+            loadonce: true,
+            multiselect: false,
+            loadComplete: function () {
+            },
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                cell: "cell",
+                id: "id"
+            },
+            loadComplete: function(data){
+                console.log(data);
+            },
+            gridComplete: function () {
+
+
+                //表格加载完成后调用方法
+                var gridName = "jqGrid";
+                Merger(gridName, 'province');
+                Merger(gridName, 'city');
+
+
+            },
+
+
+        });
+
+        $('#jqGrid').jqGrid('navGrid', '#jqGridPager', {
+            refresh: false,
+            edit: false,
+            add: false,
+            del: false,
+            search: false,
+            position: "right"
+        })
+
+
+    });
+
+
+    //单元格行合并方法
+    function Merger(gridName, CellName) {
+        debugger
+
+        //得到显示到界面的id集合
+        var mya = $("#" + gridName + "").getDataIDs();
+        //当前显示多少条
+        var length = mya.length;
+        for (var i = 0; i < length; i++) {
+            //从上到下获取一条信息
+            var before = $("#" + gridName + "").jqGrid('getRowData', mya[i]);
+            //定义合并行数
+            var rowSpanTaxCount = 1;
+            for (j = i + 1; j <= length; j++) {
+                console.log("length===========" + length);
+                //和上边的信息对比 如果值一样就合并行数+1 然后设置rowspan 让当前单元格隐藏
+                var end = $("#" + gridName + "").jqGrid('getRowData', mya[j]);
+                if (before[CellName] == end[CellName]) {
+                    rowSpanTaxCount++;
+                    $("#" + gridName + "").setCell(mya[j], CellName, '', {display: 'none'});
+                } else {
+                    rowSpanTaxCount = 1;
+                    break;
+                }
+                $("#" + CellName + "" + mya[i] + "").attr("rowSpan", rowSpanTaxCount);
+            }
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "province": "北京市",
+    "city": "海淀区",
+    "town": "清河街道",
+    "path": "A路线"
+  },{
+    "id": 2,
+    "province": "北京市",
+    "city": "海淀区",
+    "town": "西三旗街道",
+    "path": "A路线"
+  },{
+    "id": 3,
+    "province": "北京市",
+    "city": "海淀区",
+    "town": "甘家口街道",
+    "path": "A路线"
+  },{
+    "id": 4,
+    "province": "北京市",
+    "city": "东城区",
+    "town": "东华门街道",
+    "path": "A路线"
+  },{
+    "id": 5,
+    "province": "北京市",
+    "city": "东城区",
+    "town": "安定门街道",
+    "path": "A路线"
+  },{
+    "id": 6,
+    "province": "北京市",
+    "city": "东城区",
+    "town": "东直门街道",
+    "path": "A路线"
+  },{
+    "id": 7,
+    "province": "北京市",
+    "city": "东城区",
+    "town": "天坛街道",
+    "path": "A路线"
+  },{
+    "id": 8,
+    "province": "山东省",
+    "city": "济南市",
+    "town": "历下区",
+    "path": "A路线"
+  },{
+    "id": 9,
+    "province": "山东省",
+    "city": "济南市",
+    "town": "市中区",
+    "path": "A路线"
+  },{
+    "id": 10,
+    "province": "河北省",
+    "city": "石家庄市",
+    "town": "长安区",
+    "path": "A路线"
+  },{
+    "id": 11,
+    "province": "河北省",
+    "city": "石家庄市",
+    "town": "正定县",
+    "path": "A路线"
+  },{
+    "id": 12,
+    "province": "河北省",
+    "city": "张家口市",
+    "town": "桥东区",
+    "path": "A路线"
+  },{
+    "id": 13,
+    "province": "河北省",
+    "city": "张家口市",
+    "town": "桥西区",
+    "path": "A路线"
+  },{
+    "id": 14,
+    "province": "河北省",
+    "city": "张家口市",
+    "town": "宣化区",
+    "path": "A路线"
+  }
+
+]

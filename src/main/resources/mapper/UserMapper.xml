@@ -7,7 +7,7 @@
 
 -->
 <mapper namespace="com.example.springbootjqgrid.mapper.UserMapper">
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultType="com.example.springbootjqgrid.entity.User">
         SELECT * FROM user
     </select>
 </mapper>

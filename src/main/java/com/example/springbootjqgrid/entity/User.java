@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String username;//用户名
     private String sex;//密码
     private String address;//密码
+    private String email;//邮箱
     private Date birthday;//密码
 
     public Long getId() {
@@ -48,5 +49,13 @@ public class User implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

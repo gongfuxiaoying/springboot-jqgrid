@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--jqueryui-->
+    <link href="../css/jquery-ui.min.css" rel="stylesheet">
+    <!--jqgrid的css-->
+    <link href="../css/ui.jqgrid.css" rel="stylesheet">
+    <!--jquery-->
+    <script src="../js/jquery-3.0.0.min.js"></script>
+    <!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+    <!--locale-->
+    <script src="../js/i18n/grid.locale-en.js"></script>
+    <!--jqgrid的js-->
+    <script src="../js/jquery.jqGrid.min.js"></script>
+    <script src="../js/vue/vue.min.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div class="form-group col-sm-2">
+                <input type="text" class="form-control" v-model="d.name" @keyup.enter="query" placeholder="">
+            </div>
+            <a class="btn btn-default" @click="query">查询</a>
+
+            <a v-if="hasPermission('xxx:xx:x')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            <a v-if="hasPermission('xxx:xx:x')" class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            <a v-if="hasPermission('xxx:xx:x')" class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+        </div>
+
+
+
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+
+    </div>
+    <div STYLE="padding-top: 100px;">
+        <table id="jqGrid_jsonfile"></table>
+        <div id="jqGrid_jsonfile_Pager" style="border:1px solid red;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#jqGrid").jqGrid({
+            url: 'http://localhost:8081/user/queryPages',
+            // url: '../json/user.json',
+            datatype: "json",
+            colModel: [
+                { label: 'id', name: 'id', index: "id", width: 45, key: true },
+                { label: '用户名', name: 'username', index: "username", width: 75 },
+                { label: '地址', name: 'address', width: 80 },
+                { label: '邮箱', name: 'email', width: 80 }
+
+            ],
+            onSelectRow: function () {
+                //返回选中的id
+                selectedRowIndex = $("#" + this.deptId).getGridParam('selrow');
+            },
+            caption : "从controller查询分页",
+            viewrecords: true,
+            // height: 300,
+            height:"100%",
+            rowNum: 10,
+            rowList : [10,30,50],
+            rownumbers: true,
+            rownumWidth: 25,
+            autowidth:true,
+            multiselect: true,
+            pager: "#jqGridPager",
+            jsonReader : {
+                /*root: "data",
+                page: "page.currPage",
+                total: "page.totalPage",
+                records: "count"*/
+
+                root: "rows.list",
+                page: "rows.currPage",
+                total: "rows.totalPage",
+                records: "rows.totalCount"
+            },
+            postData: {
+                username: '曹'
+            },
+            prmNames : {
+                page:"page",
+                rows:"limit",
+                order: "order"
+            },
+            loadComplete: function (data) {
+                debugger
+                console.log(data);
+            },
+            gridComplete:function(){
+                //隐藏grid底部滚动条
+                $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+                // doResize();
+                $("#jqGrid").jqGrid('setLabel','rn', '序号', {'text-align':'left','width':25},'');
+
+            }
+        });
+    });
+
+    function doResize() {
+        var ss = getPageSize();
+        $("#jqGrid").jqGrid('setGridWidth', ss.WinW-10).jqGrid('setGridHeight', ss.WinH-100);
+    }
+
+    function getPageSize() {
+//http://www.blabla.cn/js_kb/javascript_pagesize_windowsize_scrollbar.html
+        var winW, winH;
+        if(window.innerHeight) {// all except IE
+            winW = window.innerWidth;
+            winH = window.innerHeight;
+        } else if (document.documentElement && document.documentElement.clientHeight) {// IE 6 Strict Mode
+            winW = document.documentElement.clientWidth;
+            winH = document.documentElement.clientHeight;
+        } else if (document.body) { // other
+            winW = document.body.clientWidth;
+            winH = document.body.clientHeight;
+        }  // for small pages with total size less then the viewport
+        return {WinW:winW, WinH:winH};
+    }
+
+    $(function () {
+        $("#jqGrid_jsonfile").jqGrid({
+            // url: 'http://localhost:8081/user/queryPagesFromJsonfile',
+            // url: '../json/user.json',
+            url: '../json/user1.json',
+            datatype: "json",
+            colModel: [
+                { label: 'id2', name: 'id', index: "id", width: 45, key: true },
+                { label: '用户名2', name: 'username', index: "username", width: 75 },
+                { label: '地址2', name: 'city', width: 80 },
+                { label: '邮箱2', name: 'email', width: 80 }
+
+            ],
+            onSelectRow: function () {
+                //返回选中的id
+                selectedRowIndex = $("#" + this.deptId).getGridParam('selrow');
+            },
+            caption : "从user.json获取数据",
+            viewrecords: true,
+            // height: 385,
+            height:"100%",
+            rowNum: 6,
+            rowList : [10,30,50],
+            rownumbers: true,
+            rownumWidth: 25,
+            autowidth:true,
+            multiselect: true,
+            pager: "#jqGrid_jsonfile_Pager",
+            jsonReader : {
+                root: "data",   ////返回的数组集合
+                page: "page",//当前页数
+                total: "total",//总页数
+                records: "records",//总行数
+            },
+            postData: {
+                username: '曹'
+            },
+            prmNames : {    //设置jqGrid将要向Server传递的参数名称
+                page:"page",
+                rows:"limit",
+                order: "order"
+            },
+            loadComplete: function (data) {
+                debugger
+                console.log(data);
+            },
+            gridComplete:function(){
+                //隐藏grid底部滚动条
+                $("#jqGrid_jsonfile").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            }
+        });
+    });
+</script>
+<pre>
+prmNames选项
+，设置jqGrid将要向Server传递的参数名称。其默认值为：
+
+prmNames : {
+
+page:"page", // 表示请求页码的参数名称
+
+rows:"rows", // 表示请求行数的参数名称
+
+sort: "sidx", // 表示用于排序的列名的参数名称
+
+order: "sord", // 表示采用的排序方式的参数名称
+
+search:"_search", // 表示是否是搜索请求的参数名称
+
+nd:"nd", // 表示已经发送请求的次数的参数名称
+
+id:"id", // 表示当在编辑数据模块中发送数据时，使用的id的名称
+
+oper:"oper", // operation参数名称
+
+editoper:"edit", // 当在edit模式中提交数据时，操作的名称
+
+addoper:"add", // 当在add模式中提交数据时，操作的名称
+
+deloper:"del", // 当在delete模式中提交数据时，操作的名称
+
+subgridid:"id", // 当点击以载入数据到子表时，传递的数据名称
+
+npage: null,
+
+totalrows:"totalrows" // 表示需从Server得到总共多少行数据的参数名称，参见jqGrid选项中的rowTotal
+}
+</pre>
+
+</body>
+</html>

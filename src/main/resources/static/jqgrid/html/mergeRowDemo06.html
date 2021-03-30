@@ -32,36 +32,38 @@
     $(document).ready(function () {
         $("#jqGrid").jqGrid({
             //url: '${ctx}/marketingPlan/getExecuteMarketingPlanPacking',
-            url: "../json/mergeRowDemo04.json",
+            url: "../json/task.json",
             datatype: "json",
             rownumbers: true,
-            colNames: ['Id', '省', '市', '县','path'],
+            colNames: ['Id', 'task_name', 'decompose', 'subject_name','dept_id'],
             colModel: [
-                {name: 'id', index: 'id', width: '30px', hidden: true, key: true},
+                {name: 'row_number', index: 'row_number', width: '30px', hidden: true, key: true},
                 {
-                    name: 'province', index: 'province', width: '50px',
+                    name: 'task_name', index: 'task_name', width: '50px',
                     cellattr: function (rowId) {
-                        //合并单元格,为单元格赋id,注意这里的前缀与 name 一致
-                        return 'id=\'province' + rowId + "\'";
+                        debugger
+                        //合并单元格,为单元格赋id
+                        return 'id=\'task_name' + rowId + "\'";
                     }
                 },
                 {
-                    name: 'city', index: 'city', width: '80px',
+                    name: 'decompose', index: 'decompose', width: '80px',
                     cellattr: function (rowId) {
+                        debugger
                         //合并单元格
-                        return 'id=\'city' + rowId + "\'";
+                        return 'id=\'decompose' + rowId + "\'";
                     }
                 },
                 {
-                    name: 'town', index: 'town', width: '80px',
+                    name: 'subject_name', index: 'subject_name', width: '80px',
                     cellattr: function (rowId) {
                         //合并单元格
-                        return 'id=\'town' + rowId + "\'";
+                        return 'id=\'subject_name' + rowId + "\'";
                     }
                 }
-                ,{name: 'path', index: 'path', width: '80px'},
+                ,{name: 'dept_id', index: 'dept_id', width: '80px'},
             ],
-            rowNum: 15,
+            rowNum: 100,
             rowList: [20, 15, 30],
             height: $(window).height,
             autowidth: true,
@@ -91,8 +93,8 @@
 
                 //表格加载完成后调用方法
                 var gridName = "jqGrid";
-                Merger(gridName, 'province');
-                Merger(gridName, 'city');
+                Merger(gridName, 'task_name');
+                Merger(gridName, 'decompose');
 
 
             },

@@ -142,6 +142,106 @@
         }
     }
 
+    /**
+     * @MethodAuthor: Yao
+     * @MethodDescription: jqgrid合并行
+     * @param {String}
+     *            gridName jqgrid表格元素的id
+     * @param {String}
+     *            CellName 需要合并的列字段名
+     * @return {*} *
+     */
+    function MergeGridRows(gridName, cellName) {
+
+        // 获取所有行
+        var rows = $('#' + gridName + '').getDataIDs()
+        // 当前显示多少条
+        var length = rows.length
+        for (var i = 0; i < length; i++) {
+            // 从上到下获取一条信息
+            var before = $('#' + gridName + '').jqGrid('getRowData', rows[i])
+            var rowSpanTaxCount = 1
+            for (j = i + 1; j <= length; j++) {
+                // 和上边的信息对比 如果值一样就合并行数+1 然后设置rowspan 让当前单元格隐藏
+                var end = $('#' + gridName + '').jqGrid('getRowData', rows[j])
+                if (before[cellName] == end[cellName]) {
+                    rowSpanTaxCount++
+                    // 设置单元格隐藏
+                    $('#' + gridName + '').setCell(rows[j], cellName, '', {
+                        display: 'none',
+                    })
+                }
+            }
+            // 设置单元格的rowspan
+            // 这里的需要用上层for循环的索引 i
+            $('#' + gridName + '').setCell(
+                rows[i],
+                cellName,
+                '',
+                {},
+                {
+                    rowspan: rowSpanTaxCount,
+                }
+            )
+
+        }
+    }
+
+    /**
+     * @MethodAuthor: Yao
+     * @MethodDescription: 合并列
+     * @param {*}
+     *            gridName jqgrid表格元素的id
+     * @param {*}
+     *            CellName 从哪一列开始
+     * @param {*}
+     *            startRowIndex 从哪一行开始
+     * @param {*}
+     *            num 合并几个
+     * @return {*} *
+     */
+    function MergeTableColumn(gridName, cellName, startRowIndex, num) {
+        // 获取所有行
+        var rows = $('#' + gridName + '').getDataIDs()
+
+        // 判断传入的行数索引是否大于最大行数，如果大于默认为最后一行
+        if (startRowIndex >= rows.length) {
+            startRowIndex = rows.length - 1
+        }
+
+        // 获取合并单元格的开始行
+        var currentRows = rows[startRowIndex]
+
+        // 由于jqgrid渲染表格时会在tbody中自动生成一个隐藏的tr在第一行，所以这里获取元素的时候需要加 1
+        var currentTr = $('#' + gridName + '')
+            .find('tr')
+            .eq(startRowIndex + 1)
+
+        // 获取 开始列 相对于父元素tr中的索引位置 这里不需要加 1 因为是直接根据id来选择的
+        var currentTdIndex = $('td[id=' + cellName + currentRows + ']').index()
+
+        // 判断传入的合并数值是否超出单元格的个数，如果超出的话设置为最大合并数
+        if (currentTdIndex + num >= currentTr.find('td').length) {
+            num = currentTr.find('td').length - currentTdIndex
+        }
+
+        // 初始化colspan的值
+        var mergeNum = 1
+
+        for (var i = 0, len = rows.length; i < len; i++) {
+            // 当索引大于开始列的索引时开始计算需要合并的colspan的值
+            if (i > currentTdIndex) {
+                // 当索引大于等于 (currentTdIndex + num) 的值说明已经达到了合并列的限制数 则跳出循环
+                if (i >= currentTdIndex + num) {
+                    break
+                }
+                mergeNum++
+                $('#' + gridName + '').setCell(currentRows, cellName, '', {color: 'red'}, {colspan: mergeNum})
+                $('#' + gridName + '').setCell(currentRows, i + 1, '', {display: 'none'})
+            }
+        }
+    }
+
 
 </script>
 

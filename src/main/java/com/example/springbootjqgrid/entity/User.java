@@ -58,4 +58,10 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public static void main(String[] args) {
+        String aa = "202102";
+        System.out.println(aa.substring(4,6));
+        System.out.println(aa.substring(0,4));
+    }
 }
